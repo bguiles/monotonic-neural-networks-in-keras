@@ -21,11 +21,29 @@ This method relies on using either a single, nonconvex monotonic activation func
 
 ### Wiggle
 
-Wiggle is the identity asymptote: wiggle(x) approaches x as |x| approaches infinity. Is is nonconvex in both the positive and negative domains. You can see it in action here:
+Wiggle is the identity asymptote: wiggle(x) approaches x as |x| approaches infinity. Is is nonconvex in both the positive and negative domains. 
 
+You can see it in action here: https://www.desmos.com/calculator/4jrq6iwfzg
 
 
 ```
 def wiggle(x):
     return x**3 / (x**2 + 1)
 ```
+
+
+### Leaky ReLU and Leaky NeLU
+
+Leaky ReLU is defined by relu(x) = max(kx,x), where k is a constant less than one, usually 0.1. It is monotonically increasing and convex upward.
+
+Leaky NeLU is defined by nelu(x) = min(kx,x). It is monotonically increasing and convex downward.
+
+Leaky ReLU and Leaky NeLU are both monotonic, but they are also convex. If we compose a convex function with another function that is convex in the same direction, the result can only be another convex function. If we want to constrain our neural network to be monotonic, but not necessarily convex, we need to use both activations functions that are convex upward and convex downward. As long as both are monotonic, the output of the combination and composition of both will always be monotonic as well.
+
+
+```
+def def nelu(x, alpha=0.1, max_value=None, threshold=0):
+  return -1 * K.relu((-1 * x), alpha=alpha, max_value=max_value, threshold=threshold)
+```
+
+The advantage of wiggle(x) is that it is a single function, and much simpler to use. However, it is more difficult to differentiate and calculate than relu(x)/nelu(x), so some minor training and inference performance gains may be realized with the latter. In my experience, however, training and inference time is more impacted by the number of memory operations required than the floating point operations.
