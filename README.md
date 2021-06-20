@@ -15,7 +15,7 @@ A neural network trained to predict graduation probability from GPA and SAT scor
 
 Luckily, the mathematical structure of a neural network does allow us to apply a hard monotonicity constraint. Remember that a neural network is itself a function that is the composition of many smaller functions. When we compose monotonic functions together, we get another monotonic function! Applied in the right way, we can design a neural network whose output is monotonic with respect to any or all of the inputs, while maintaining all of the flexibility of an unconstrained neural network. We can even enable the network to learn whether or not the monotonicity should be increasing or decreasing based on the data alone.
 
-# Monotonic Activation Function
+# Monotonic Activation Functions
 
 This method relies on using either a single, nonconvex monotonic activation function, or a combination of two activation functions in parallel which are both monotonic and convex upward (i.e. leaky ReLU) and monotonic and convex downward. Neither of these are provided completely in Keras, but Keras does make it easy to define our own.
 
@@ -50,6 +50,37 @@ def nelu(x, alpha=0.1, max_value=None, threshold=0):
   return -1 * K.relu((-1 * x), alpha=alpha, max_value=max_value, threshold=threshold)
 ```
 
-The advantage of wiggle(x) is that it is a single function, and much simpler to use. However, it is more difficult to differentiate and calculate than relu(x)/nelu(x), so some minor training and inference performance gains may be realized with the latter. In my experience, however, training and inference time is more impacted by the number of memory operations required than the floating point operations.
+The advantage of wiggle(x) is that it is a single function, and much simpler to use with the Keras sequential and functional APIs. To use relu(x)/nelu(x) as parallel activation functions, we need to use tf.split operations and separate activation layers in the functional API. However, wiggle(x) requires more computing power to differentiate and calculate than relu(x)/nelu(x), so some minor training and inference performance gains may be realized with the latter. In my experience, however, training and inference time is more impacted by the number of memory operations required than the floating point operations, so the difference is minimal for smaller models.
 
-A second advantage of using a combination of relu(x) and nelu(x) is that the "tails" of the function approximated by the neural network can go in independent directions, potentially improving the ability of the model to extrapolate reasonable, if not perfectly accurate answers outside of the original domain of the training data.
+A second advantage of using a combination of relu(x) and nelu(x) is that the "tails" of the function approximated by the neural network can go in independent directions, potentially improving the ability of the model to extrapolate reasonable, if not perfectly accurate inferences outside of the original domain of the training data.
+
+In practice, either approach can achieve a monotonic neural network.
+
+# Weight Constraints
+
+Using monotonic activation functions is not enough to ensure monotonicity between an input and an output of a neural network. We will also need to constrain the sign of the weights of each layer. 
+
+
+```
+class SameSign(tf.keras.constraints.Constraint):
+
+  def __init__(self, axis=None, mono_inputs=1.):
+    self.axis = axis               
+    self.mono_inputs = tf.cast(mono_inputs, dtype=tf.float32)  # Apply SameSign constraint only to the inputs that should be monotonic w/r/t output. mono_inputs is a boolean array (e.g. [[0],[1]]) the same length as the input vector.
+
+  def __call__(self, w):
+    w_mean = tf.math.reduce_mean(w, axis=self.axis, keepdims=True)
+    m_pos = tf.cast(tf.math.greater_equal(w_mean,0.0), dtype=tf.float32)
+    m_neg = tf.cast(tf.math.less(w_mean,0.0), dtype=tf.float32)
+
+    # Conditional form of the SameSign algorithm
+    '''
+    if w_mean >= 0:
+      return abs(w)
+    else:
+      return -1 * abs(w)
+    '''
+
+    # SameSign algorithm without conditionals
+    return (tf.cast(tf.math.abs(self.mono_inputs-1), dtype=tf.float32) * w) + (tf.cast(self.mono_inputs, dtype=tf.float32) * ((m_pos * abs(w)) + (m_neg * -1. * abs(w))))
+```
