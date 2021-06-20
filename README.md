@@ -25,8 +25,7 @@ Wiggle is the identity asymptote: wiggle(x) approaches x as |x| approaches infin
 
 
 
-
-`<
+```
 def wiggle(x):
     return x**3 / (x**2 + 1)
->`
+```
