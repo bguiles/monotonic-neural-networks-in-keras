@@ -17,7 +17,7 @@ Luckily, the mathematical structure of a neural network does allow us to apply a
 
 # Monotonic Activation Function
 
-This method relies on using either a single, nonconvex monotonic activation function, or a combination of two activation functions which are both monotonic and convex upward (i.e. leaky ReLU) and monotonic and convex downward. Neither of these are provided completely in Keras, but Keras does make it easy to define our own.
+This method relies on using either a single, nonconvex monotonic activation function, or a combination of two activation functions in parallel which are both monotonic and convex upward (i.e. leaky ReLU) and monotonic and convex downward. Neither of these are provided completely in Keras, but Keras does make it easy to define our own.
 
 ### Wiggle
 
@@ -42,6 +42,10 @@ Leaky ReLU and Leaky NeLU are both monotonic, but they are also convex. If we co
 
 
 ```
+# Keras comes packaged with Leaky ReLU already implemented. We can tweak it a little bit to get nelu(x).
+
+from keras import backend as K
+
 def nelu(x, alpha=0.1, max_value=None, threshold=0):
   return -1 * K.relu((-1 * x), alpha=alpha, max_value=max_value, threshold=threshold)
 ```
