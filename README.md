@@ -1,4 +1,4 @@
-# Monotonic Neual Networks In Keras
+# Monotonic Neural Networks In Keras
 A simple(r) way to obtain guaranteed monotonicity and/or convexity in Keras.
 
 by Ben Guiles
