@@ -11,8 +11,16 @@ A subset of the problems for which neural networks have difficulty providing sat
 
 For instance, in college admissions, property value assessments, loan applications, and other problems it is reasonable to expect certain features should have a monotonic--i.e. always increasing or always decreasing--relationship with the output variable. 
 
-A neural network trained to predict graduation probability from GPA and SAT scores may, without the application of a monotonicity constraint, mistakenly predict lower graduation rates for higher GPAs or SAT scores over certain combinations of inputs.
+A neural network trained to predict graduation probability from GPA and SAT scores may, without the application of a monotonicity constraint, mistakenly predict lower graduation probabilities for higher GPAs or SAT scores over certain combinations of inputs.
 
-Luckily, the mathematical structure of a neural network does allow us to apply a hard monotonicity constraint. Remember that a neural network is a function that is the composition of many smaller functions. When we compose monotonic functions together, we get another monotonic function! Applied in the right way, we can design a neural network whose output is monotonic with respect to any or all of the inputs, while maintaining all of the flexibility of an unconstrained neural network. We can even enable the network to learn whether or not the monotonicity should be increasing or decreasing based on the data alone.
+Luckily, the mathematical structure of a neural network does allow us to apply a hard monotonicity constraint. Remember that a neural network is itself a function that is the composition of many smaller functions. When we compose monotonic functions together, we get another monotonic function! Applied in the right way, we can design a neural network whose output is monotonic with respect to any or all of the inputs, while maintaining all of the flexibility of an unconstrained neural network. We can even enable the network to learn whether or not the monotonicity should be increasing or decreasing based on the data alone.
 
-Best of all, this can be implemented with minor tweaks to a fantastic API of an already excellent data science framework, Tensorflow.
+# Activation Function
+
+This method relies on using either a single, nonconvex monotonic activation function, or a combination of two monotonic activation functions which are convex upward and convex downward. Neither of these are provided satisfactorily in Keras, so we have to create our own:
+
+## Wiggle
+'''
+def wiggle(x):
+    return x**3 / (x**2 + 1)
+'''
