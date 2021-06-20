@@ -47,3 +47,5 @@ def nelu(x, alpha=0.1, max_value=None, threshold=0):
 ```
 
 The advantage of wiggle(x) is that it is a single function, and much simpler to use. However, it is more difficult to differentiate and calculate than relu(x)/nelu(x), so some minor training and inference performance gains may be realized with the latter. In my experience, however, training and inference time is more impacted by the number of memory operations required than the floating point operations.
+
+A second advantage of using a combination of relu(x) and nelu(x) is that the "tails" of the function approximated by the neural network can go in independent directions, potentially improving the ability of the model to extrapolate reasonable, if not perfectly accurate answers outside of the original domain of the training data.
