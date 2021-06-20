@@ -42,7 +42,7 @@ Leaky ReLU and Leaky NeLU are both monotonic, but they are also convex. If we co
 
 
 ```
-def def nelu(x, alpha=0.1, max_value=None, threshold=0):
+def nelu(x, alpha=0.1, max_value=None, threshold=0):
   return -1 * K.relu((-1 * x), alpha=alpha, max_value=max_value, threshold=threshold)
 ```
 
