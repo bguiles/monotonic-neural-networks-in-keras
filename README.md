@@ -1,6 +1,7 @@
 # Monotonic Neual Networks In Keras
-## A simple(r) way to obtain guaranteed monotonicity and/or convexity in Keras.
-## by Ben Guiles
+A simple(r) way to obtain guaranteed monotonicity and/or convexity in Keras.
+
+by Ben Guiles
 
 Neural networks, especially deep ones, have a reputation for being opaque to human understanding and for delivering predictions that are difficult to explain. They are, after all, large multivariate functions consisting of often thousands of compositions of other multivariate functions. While it’s easy to explain what each piece of the neural network does alone, it is not trivial to wrap your head around why or how a neural network delivers a particular output given a set of inputs.
 
