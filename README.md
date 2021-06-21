@@ -24,7 +24,7 @@ Translation: exp(f(log(x))) shall be monotonically decreasing
 
 Translation: f(x) shall be monotonically decreasing and convex upwards
 
-In each of these cases, if we can guarantee monotonicity, we can achieve a reasonable result. Fortunately, it is possible to guarantee a monotonic output from a neural network with respect to any or all of its inputs, while maintaining the unconstrained flexibility which makes neural networks so valuable for extremely complex problems.
+In each of these cases, if we can guarantee monotonicity, we can achieve a reasonable result. Fortunately, it is possible to guarantee a monotonic output from a neural network with respect to any or all of its inputs, while maintaining the unconstrained flexibility which makes neural networks so valuable for modeling extremely complex problems.
 
 Remember that a neural network is itself a function that is the composition of many smaller functions. When we compose monotonic functions together, we get another monotonic function! Applied in the right way, we can design a neural network whose output is monotonic with respect to any or all of the inputs, while maintaining all of the flexibility of an unconstrained neural network. We can even enable the network to learn whether or not the monotonicity should be increasing or decreasing based on the data alone.
 
