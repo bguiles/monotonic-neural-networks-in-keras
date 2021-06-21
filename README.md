@@ -1,4 +1,4 @@
-# Monotonic Neural Networks In Keras
+# Building Monotonic Deep Neural Networks Using Keras
 
 ###### A simple(r) way to build monotonic neural networks in Keras.
 
