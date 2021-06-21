@@ -30,7 +30,7 @@ Remember that a neural network is itself a function that is the composition of m
 
 We can even do this without any real difficulty using Keras, one of the most popular tools for building and training deep neural networks in the deep learning framework Tensorflow.
 
-The concept is simple: monotonic activation functions + careful placement of sign constraints to node weights = guaranteed monotonicity
+The concept is simple: monotonic activation functions + careful placement of sign constraints to layer weights = guaranteed monotonicity
 
 # Monotonic Activation Functions
 
