@@ -14,11 +14,15 @@ For example:
 
 "If x goes up, y should always go up."
 
-Mathematical translation: f(x) shall be monotonically increasing
+Translation: f(x) shall be monotonically increasing
 
-"As x approaches zero, y should approach infinity, and as x approaches infinity, y should approach zero." Mathematical translation: exp(f(log(x))) shall be monotonically decreasing
+"As x approaches zero, y should approach infinity, and as x approaches infinity, y should approach zero." 
 
-"As input 2 goes up, output should go down, and the rate at which output goes down should only decrease." f(x) shall be monotonically decreasing and convex upwards
+Translation: exp(f(log(x))) shall be monotonically decreasing
+
+"As input 2 goes up, output should go down, and the rate at which output goes down should only decrease." 
+
+Translation: f(x) shall be monotonically decreasing and convex upwards
 
 In each of these cases, if we can guarantee monotonicity, we can achieve a reasonable result. Fortunately, it is possible to guarantee a monotonic output from a neural network with respect to any or all of its inputs, while maintaining the unconstrained flexibility which makes neural networks so valuable for extremely complex problems.
 
