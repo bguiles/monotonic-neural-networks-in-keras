@@ -55,7 +55,7 @@ Leaky NeLU is defined by nelu(x) = min(kx,x). It is monotonically increasing and
 
 Leaky ReLU and Leaky NeLU are both monotonic, but they are also convex. If we compose a convex function with another function that is convex in the same direction, the result can only be another convex function. If we want to constrain our neural network to be monotonic, but not necessarily convex, we need to use both activations functions that are convex upward and convex downward. As long as both are monotonic in the same direction, the output of the combination and composition of both will always be monotonic as well.
 
-Here you can see that nelu(x) is just a linear transformation of (leaky) relu(x):
+Here you can see that nelu(x) is just the negative cousin of (leaky) relu(x): https://www.desmos.com/calculator/1nu0owbtwz
 
 ```
 # Keras comes packaged with Leaky ReLU already implemented. We can tweak it a little bit to get nelu(x).
