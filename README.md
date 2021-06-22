@@ -51,7 +51,7 @@ def wiggle(x):
 
 Leaky ReLU is defined by relu(x) = max(kx,x), where k is a constant less than one, usually 0.1. It is monotonically increasing and convex upward.
 
-Leaky NeLU is defined by nelu(x) = min(kx,x). It is monotonically increasing and convex downward. NeLU doesn't stand for anything in particular, but it implies inversion.
+Leaky NeLU is defined by nelu(x) = min(kx,x). It is monotonically increasing and convex downward. NeLU doesn't stand for anything in particular, but its name is intended to evoke that it is the result of reflecting ReLU about the origin, and in some sense a negative ReLU.
 
 Leaky ReLU and Leaky NeLU are both monotonic, but they are also convex. If we compose a convex function with another function that is convex in the same direction, the result can only be another convex function. If we want to constrain our neural network to be monotonic, but not necessarily convex, we need to use both activations functions that are convex upward and convex downward. As long as both are monotonic in the same direction, the output of the combination and composition of both will always be monotonic as well.
 
