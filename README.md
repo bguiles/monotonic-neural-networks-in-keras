@@ -80,8 +80,6 @@ To do this, we create a SameSign class, subclassed from tf.keras.constrains.Cons
 
 The Constraint class is called by a layer every training epoch _after_ the weights are updated by the optimizer, but _before_ those weights are used to make predictions on the next batch. A Constraint can be applied to a layer using the kernel\_constraint argument to constrain weights or bias\_constraint argument to constrain biases. 
 
-(While there is no strict reason we can't use SameSign with the bias\_constraint, biases to not need to be constrained to all positive or all negative to ensure monotonicity. So we'll ignore those for the time being.)
-
 The SameSign class works like this: Each layer is initialized with an axis and array of inputs which will be forced to share a sign. For the first hidden layer of a neural network, set the axis to 1 to 
 
 ```
