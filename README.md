@@ -28,7 +28,7 @@ In each of these cases, if we can guarantee monotonicity, we can achieve a reaso
 
 Remember that a neural network is itself a function that is the composition of many smaller functions. When we compose monotonic functions together, we get another monotonic function! Applying this principle in the right way, we can design a neural network whose output is monotonic with respect to any or all of the inputs, while maintaining all of the flexibility of an unconstrained neural network. We can even enable the network to learn whether or not the monotonicity should be increasing or decreasing based on the data alone.
 
-We can even do this without any real difficulty using Keras, one of the most popular tools for building and training deep neural networks in the deep learning framework Tensorflow.
+Other libraries for Tensorflow exist which can enable us to create monotonic neural networks. Much of my own work is inspired by the work of Dr. Maya Gupta, the creator of Tensorflow Lattice. Without a doubt, for some problems requiring monotonicity combined with other constraints, Tensorflow Lattice would be the better tool. However, the simple methods I've created allow us to use the stock Keras APIs with the simple and easy addition of some custom activation functions and weight constriants. I also believe my method provides at least a few advantages over Tensorflow Lattice for a certain classes of problems; namely extrapolation, and the easy implementation of monotonic multiplicative networks using log transformed data.
 
 The concept is simple: monotonic activation functions + careful placement of sign constraints to layer weights = guaranteed monotonicity
 
